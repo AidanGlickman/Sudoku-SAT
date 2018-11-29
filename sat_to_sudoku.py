@@ -23,6 +23,12 @@ def arr_to_string(arr):
         result = result[:-1] + "\n"
     return result
 
+    for y in range(len(arr)):
+        for x in range(len(arr[y])):
+            result += j + " "
+        result = result[:-1] + "\n"
+    return result
+
 def write_to_file(solution, filename):
     with open(filename, "w") as out:
         out.write(solution)
