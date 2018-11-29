@@ -1,6 +1,8 @@
+import sys
+
 def read_file(file):
-    with open(file) as input:
-        lines = [line.split() for line in input]
+    with open(file) as inputfile:
+        lines = [line.split() for line in inputfile]
         return lines, len(lines)
 
 def gen_vars(board):
@@ -91,7 +93,10 @@ def write_solution(solution, filename):
         out.write(solution)
 
 def main():
-    filename = "sudokus/s01a.txt"
+    if(len(sys.argv) < 2):
+        print("Please include an input file and try again.")
+        sys.exit(1)
+    filename = sys.argv[1]
     board, size = read_file(filename)
     varlist = set(gen_vars(board))
     clauses = gen_clauses(varlist, size)
