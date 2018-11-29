@@ -3,7 +3,7 @@ import sys
 def read_file(file):
     with open(file) as inputfile:
         lines = [line.split() for line in inputfile]
-        return lines, len(lines)
+        return lines
 
 def gen_vars(board):
     varlist = []
@@ -88,19 +88,24 @@ def combine_clauses(clauses, size):
     clauses_str = "\n".join(clauses)
     return f"p cnf {size**3-1} {len(clauses)}\n{clauses_str}"
 
-def write_solution(solution, filename):
-    with open(filename+".out", "w") as out:
+def write_to_file(solution, filename):
+    with open(filename, "w") as out:
         out.write(solution)
 
 def main():
     if(len(sys.argv) < 2):
-        print("Please include an input file and try again.")
+        print(f"{sys.argv[0]}: Please include an input file and try again.")
         sys.exit(1)
     filename = sys.argv[1]
-    board, size = read_file(filename)
+    board = read_file(filename)
+    size = 10
     varlist = set(gen_vars(board))
     clauses = gen_clauses(varlist, size)
     solution = combine_clauses(clauses, size)
-    write_solution(solution, filename)
+
+    if(len(sys.argv) > 2):
+        write_to_file(solution, sys.argv[2])
+    else:
+        print(soln_string)
 
 main()
